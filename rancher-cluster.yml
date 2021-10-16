@@ -1,0 +1,31 @@
+nodes:
+  - address: 10.184.0.5
+    internal_address: 10.184.0.5
+    user: sem
+    role: [controlplane, etcd]
+  - address: 10.184.0.6
+    internal_address: 10.184.0.6
+    user: sem
+    role: [controlplane, etcd]
+  - address: 10.184.0.7
+    internal_address: 10.184.0.7
+    user: sem
+    role: [controlplane, etcd]
+  - address: 10.184.0.8
+    internal_address: 10.184.0.8 
+    user: sem
+    role: [worker]
+
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+
+# Required for external TLS termination with
+# ingress-nginx v0.22+
+ingress:
+  provider: nginx
+  options:
+    use-forwarded-headers: "true"
