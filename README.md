@@ -48,5 +48,41 @@ requirement
     shell sudo apt-get install docker-ce docker-ce-cli containerd.io -y
     ```
     
-- RKE Config
--
+- Create RKE Config
+    
+    ```jsx
+    nodes:
+      - address: 10.184.0.5
+        internal_address: 10.184.0.5
+        user: sem
+        role: [controlplane, etcd]
+      - address: 10.184.0.6
+        internal_address: 10.184.0.6
+        user: sem
+        role: [controlplane, etcd]
+      - address: 10.184.0.7
+        internal_address: 10.184.0.7
+        user: sem
+        role: [controlplane, etcd]
+      - address: 10.184.0.8
+        internal_address: 10.184.0.8 
+        user: sem
+        role: [worker]
+    
+    services:
+      etcd:
+        snapshot: true
+        creation: 6h
+        retention: 24h
+    
+    ingress:
+      provider: nginx
+      options:
+        use-forwarded-headers: "true"
+    ```
+    
+- Run RKE
+    
+    ```jsx
+    rke up --config ./rancher-cluster.yml
+    ```
